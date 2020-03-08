@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="row">
+		<div class="col">
+			<h1>Gestion des découvertes</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+
+			{% include '_inc/flash.messages.html.twig' %}
+
+			<p class="text-right">
+				<a href="{{ url('admin.discovery.form') }}" class="btn btn-primary">Ajouter</a>
+			</p>
+			<table class="table table-striped">
+				<tr>
+					<th>Image</th>
+					<th>Nom</th>
+					<th>Pays</th>
+					<th></th>
+				</tr>
+				{% for discovery in results %}
+					<tr>
+						<td class="w-25">
+							<img src="{{ asset('img/discovery/' ~ discovery.image) }}" class="img-fluid" alt="">
+						</td>
+						<td>{{ discovery.name }}</td>
+						<td>{{ discovery.country.name}}</td>
+						<td class="text-right">
+							<a href="{{ url('admin.discovery.form.update', { id: discovery.id }) }}" class="btn btn-warning">Modifier</a>
+							<a href="{{ url('admin.discovery.delete', { id: discovery.id }) }}" class="btn btn-danger">Supprimer</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+
+
+
+
+
+

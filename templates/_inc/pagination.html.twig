@@ -1,0 +1,26 @@
+{% set nb_pages = (total_items / items_per_page) | round(0, 'ceil') %}
+{% set active_page = app.request.get('_route_params')['page'] %}
+
+<div class="row">
+	<div class="col">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item {{ active_page == 1 ? 'disabled' : null }}">
+					<a class="page-link" href="{{ url(route_name, { page: active_page - 1 }) }}" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				{% for i in 1..nb_pages %}
+					<li class="page-item {{ active_page == i ? 'active' : null }}">
+						<a class="page-link" href="{{ url(route_name, { page: i }) }}">{{ i }}</a>
+					</li>
+				{% endfor %}
+				<li class="page-item {{ active_page == nb_pages ? 'disabled' : null }}">
+					<a class="page-link" href="{{ url(route_name, { page: active_page + 1 }) }}" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</div>
